@@ -21,32 +21,45 @@ public class IThP1_Launch {
 	public static void main(String[] args) {
 		Scanner s = new Scanner(System.in);
 		boolean[] binarray = null;
-		System.out.println("====MORSECODE====");
-		System.out.println("Bitte auswählen:\n1: Text2Morse2Bin\n2: Bin2Morse2Text");
-		System.out.print("Eingabe: ");
+		boolean fallthrough = false;
 		int e = 0;
 		
-		
-		e = s.nextInt();
-		s.nextLine();
-		
-		if (e < 1 || e > 5) {
-			System.out.println("Fehler");
-			return;
+		while (!(e == 1 || e == 2)) {
+			System.out.println("====MORSECODE====");
+			System.out.println("Bitte auswählen:\n1: Text2Morse2Bin\n2: Bin2Morse2Text");
+			System.out.print("Eingabe: ");
+
+			try {
+				e = s.nextInt();
+				
+			} catch(Exception ee) {
+				
+			}
+			s.nextLine();
 		}
 		
 		
-		boolean fallthrough = false;
+		
+		
 		
 		switch (e)
 		{
 		case 1:
-
-			System.out.println("Bitte auswählen:\n1: Text\n2: Textdatei\nEingabe: ");
+			
 			int t2m = 0;
 			String t2mtext = "";
-			t2m = s.nextInt();
+			while(!(t2m == 1 || t2m == 2)) {
+				System.out.println("Bitte auswählen:\n1: Text\n2: Textdatei\nEingabe: ");
+			try {
+				t2m = s.nextInt();
+			} catch (Exception ee) {
+				
+			}
+			
+			
 			s.nextLine();
+			}
+			
 			if (t2m == 1) {
 				System.out.println("Bitte Text eingeben: ");
 				t2mtext = s.nextLine();
@@ -80,10 +93,17 @@ public class IThP1_Launch {
 			else if(binarray.length < binarraycompare.length) System.out.print("länger als ");
 			else System.out.print("genauso lang wie ");
 			System.out.println("Morsecodierung.");
-			System.out.print("Soll dieses Objekt zurückcodiert werden? (j/n): ");
-			String backcode = "";
-			if(!s.nextLine().equals("j")) {
-				break; //backcode = morse2text(bin2morse(binarray));
+			
+			String jn = "";
+			while(!(jn.equals("j") || jn.equals("n"))) {
+				System.out.print("Soll dieses Objekt zurückcodiert werden? (j/n): ");
+
+			jn = s.nextLine();
+			}
+			
+			
+			if(jn.equals("n")) {
+				break;
 			}
 			e = 2;
 			fallthrough = true;
@@ -97,22 +117,28 @@ public class IThP1_Launch {
 			
 			boolean[] binarrayreverse;
 			if(!fallthrough) {
-				System.out.println("Bitte Binärfolge als Folge von 0 und 1 eingeben:");
-				String binin = s.nextLine();
-				boolean[] binarrayin = new boolean[binin.length()];
+				boolean bingood = true;
+				do {
+					bingood = true;
+					System.out.println("Bitte Binärfolge als Folge von 0 und 1 eingeben:");
+					String binin = s.nextLine();
+					boolean[] binarrayin = new boolean[binin.length()];
 
-				for(int i = 0; i < binin.length(); i++) {
-					
-					if(binin.charAt(i) == '0') {
-						binarrayin[i] = false;
-					} else if(binin.charAt(i) == '1') {
-						binarrayin[i] = true;
-					} else {
-						System.err.println("Fehlerhafte Eingabe: " + binin.charAt(i));
-						return;
+					for(int i = 0; i < binin.length(); i++) {
+						
+						if(binin.charAt(i) == '0') {
+							binarrayin[i] = false;
+						} else if(binin.charAt(i) == '1') {
+							binarrayin[i] = true;
+						} else {
+							System.err.println("Fehlerhafte Eingabe!");
+							bingood = false;
+							break;
+						}
 					}
-				}
-				binarrayreverse = binarrayin;
+					binarrayreverse = binarrayin;
+				}	while(!bingood); 
+				
 			} else {
 				binarrayreverse = binarray;
 			}
