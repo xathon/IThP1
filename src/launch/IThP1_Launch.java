@@ -191,7 +191,7 @@ public class IThP1_Launch {
 				}
 			}
 		} else {
-			for(int i = 0; i < 25; i++) {
+			for(int i = 0; i < 26; i++) {
 				if(morse[i].equals(zeichen)) {
 					return (char)(97+i);
 				}
